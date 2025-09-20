@@ -1,0 +1,10 @@
+-Iglad/include
+-Iglfw/include
+-Istb/include
+-lglfw3
+-lGL
+-lX11
+-lpthread
+-lXrandr
+-lXi
+-ldl
