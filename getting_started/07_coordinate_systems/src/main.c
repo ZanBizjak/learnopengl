@@ -100,10 +100,10 @@ int main() {
 
 	    12, 13, 14,
 	    14, 12, 15,
-	   
+
 	    16, 17, 18,
 	    18, 16, 19,
-	    
+
 	    20, 21, 22,
 	    22, 20, 23,
 	};
@@ -120,7 +120,7 @@ int main() {
 	}
 
 
-	// Texture setup
+	// @Texture_setup
 	//-------------------------------------------
 	// Set texture filtering mode. There are settings for either when texture is scaled down(MIN) or up(MAG)
 	// You have to set both
@@ -131,9 +131,12 @@ int main() {
 	unsigned int texture_container = init_texture("container.jpg", GL_RGB, GL_TEXTURE0, GL_CLAMP_TO_EDGE);
 	unsigned int texture_awesomeface = init_texture("trololo.png", GL_RGBA, GL_TEXTURE1, GL_REPEAT);
 
+	// "uniform(s)" is a variable in the shader program, that you can set
+	// from the CPU (the main program)
 	set_uniform_int(shader_program, "container", 0);
 	set_uniform_int(shader_program, "awesomeface", 1);
 
+	// @Texture_setup
 	//-------------------------------------------
 	//
 	
@@ -144,13 +147,13 @@ int main() {
 	glfwGetWindowSize(window, &width, &height);
 
 	// The model matrix is the matrix where we perform transformations to our object. Every object
-	// when first presentet with it's vertex coordinates are presented within a "local space". With
+	// when first presented with it's vertex coordinates are presented within a "local space". With
 	// the model matrix we perform scaling/rotating/translating within this local space. We do this 
 	// within the local space because it's a simpler thing to do within this context rather than the 
 	// global context of the whole rendered world
 
 	// The view matrix is the "camera matrix". It's the transformation that happens to all objects in order 
-	// to calculate wether they are seen within the "shoot" of the camera. This means that each vertex that gets 
+	// to calculate wether they are seen within the "shot" of the camera. This means that each vertex that gets 
 	// transformed into a value within the ranges -1.0 to 1.0, are rendered. All others are "clipped" and thrown out
 	mat4s view = GLMS_MAT4_IDENTITY_INIT;
 	view = glms_translate(view, (vec3s){0.0f, 0.0f, -3.0f});
@@ -197,6 +200,10 @@ int main() {
 		// Use this shader program for rendering vertecies to the screen
 		//
 		glUseProgram(shader_program);
+
+
+		// Notice in the @Texture_setup code, we set uniforms for container and awesomeface
+		// to be uniforms with values 0 and 1. These are the GL_TEXTURE0 and GL_TEXTURE1 refering here
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture_container);
 		glActiveTexture(GL_TEXTURE1);

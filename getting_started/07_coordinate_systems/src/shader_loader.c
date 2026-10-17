@@ -52,7 +52,7 @@ unsigned int create_shader_program(unsigned int shader_ids[], int num_of_shaders
 }
 
 unsigned int compile_shader(const char* shaderSourceCode, GLenum shaderType, const char* file_name ) {
-	// Shader will be the ID of the vertex shader we'll compile
+	// Shader will be the ID of the shader we'll compile
 	unsigned int shader;
 	// generate an ID to the shader
 	shader = glCreateShader(shaderType);

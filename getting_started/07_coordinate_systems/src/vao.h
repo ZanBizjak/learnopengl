@@ -23,6 +23,7 @@ struct VertexAttribInfo {
   // vertex data are floats, so this value would hold sizeof(float) value.
   int size_of_array_type;
 };
+// !!WARN: Currently a float only vertex attributes are supported, since the VAO loading mechanism assumes GL_FLOAT datatype
 
 
 unsigned int init_vao(float vertices[], int vertices_size, unsigned int indices[], int indices_size, struct VertexAttribInfo vertexAttribInfo); 

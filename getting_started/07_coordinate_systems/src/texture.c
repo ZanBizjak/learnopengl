@@ -40,6 +40,8 @@ unsigned int init_texture(char* texture_image_file,  GLenum image_type, GLenum t
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	stbi_image_free(data);
+	// Unbind the GL_TEXTURE_2D, to prevent accidental texture shenanigans.
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	return texture;
 }

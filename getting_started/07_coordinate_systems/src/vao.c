@@ -9,7 +9,7 @@ struct VertexAttribInfo construct_vertex_attrib_info(int num_of_attribs, int* at
 	struct VertexAttribInfo vert_attrib_info;
         vert_attrib_info.num_of_attribs = num_of_attribs;
         vert_attrib_info.size_of_array_type = sizeof_array_type;
-        vert_attrib_info.attrib_lengths = malloc(num_of_attribs * sizeof_array_type);
+        vert_attrib_info.attrib_lengths = malloc(num_of_attribs * sizeof(int));
 	for(int i = 0; i < num_of_attribs; i++) {
 	vert_attrib_info.attrib_lengths[i] = attrib_lengths[i];
 	}
@@ -51,6 +51,8 @@ void assign_VAO_for_vertices(float vertices[], unsigned int vertices_size_bytes,
 	for(int i = 0; i < vertexAttribInfo.num_of_attribs; i++) {
 		glVertexAttribPointer(i,
 			       vertexAttribInfo.attrib_lengths[i],
+				// Assumption made that all vertex attirubtes are GL_FLOAT. what happens when a non-float attribute is added? 
+				// A "attribute type" array should be added to VertexAttribInfo struct in order to handle this.
 			       GL_FLOAT,
 			       GL_FALSE,
 			       vertex_attrib_len * vertexAttribInfo.size_of_array_type,
@@ -58,6 +60,9 @@ void assign_VAO_for_vertices(float vertices[], unsigned int vertices_size_bytes,
 	glEnableVertexAttribArray(i);
 
 	}
+
+	// Unbind GL_ARRAY_BUFFER from above VBO.
+	// This ensrues a clean slate for buffer handling and prevents accidental modificaiton to the buffer
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
